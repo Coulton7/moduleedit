@@ -136,16 +136,16 @@ function _social_profile_field_get_domain($url) {
 }
 
 /**
- * Returns path to icon file.
+ * Returns path to icon file.*/
 
 function _social_profile_field_get_icon_path($domain = 'default') {
-  return drupal_get_path('module', 'social_profile_field') . '/icons/' . $domain . '.png';
-}*/
+  return drupal_get_path('module', 'social_profile_field') . '/social_profile_field.css';
+}
 
 /**
  * Returns path to social network icon.
  * @url string URL.
- * @return string Rendered HTML-code for icon..
+ * @return string Rendered HTML-code for icon..*/
 
 function _social_profile_field_get_icon($domain) {
   $path = _social_profile_field_get_icon_path($domain);
@@ -156,7 +156,7 @@ function _social_profile_field_get_icon($domain) {
     'path' => $path,
     'attributes' => array('class' => 'social-profile-icon'),
   ));
-}*/
+}
 
 /**
  * Implements hook_field_formatter_view().
@@ -181,7 +181,7 @@ function social_profile_field_field_formatter_view($entity_type, $entity, $field
         }
         $element[$delta] = array(
           '#markup' => l(
-            /*_social_profile_field_get_icon($domain),*/
+            _social_profile_field_get_icon($domain),
             check_url(trim($item['url'])),
             array('html' => TRUE, 'attributes' => array('class' => $class, 'target' => '_blank'))
           ),
