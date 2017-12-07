@@ -137,16 +137,16 @@ function _social_profile_field_get_domain($url) {
 
 /**
  * Returns path to icon file.
- */
+
 function _social_profile_field_get_icon_path($domain = 'default') {
   return drupal_get_path('module', 'social_profile_field') . '/icons/' . $domain . '.png';
-}
+}*/
 
 /**
  * Returns path to social network icon.
  * @url string URL.
  * @return string Rendered HTML-code for icon..
- */
+
 function _social_profile_field_get_icon($domain) {
   $path = _social_profile_field_get_icon_path($domain);
   if (!file_exists($path)) {
@@ -156,7 +156,7 @@ function _social_profile_field_get_icon($domain) {
     'path' => $path,
     'attributes' => array('class' => 'social-profile-icon'),
   ));
-}
+}*/
 
 /**
  * Implements hook_field_formatter_view().
