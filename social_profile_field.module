@@ -181,7 +181,7 @@ function social_profile_field_field_formatter_view($entity_type, $entity, $field
         }
         $element[$delta] = array(
           '#markup' => l(
-            _social_profile_field_get_icon($domain),
+            /*_social_profile_field_get_icon($domain),*/
             check_url(trim($item['url'])),
             array('html' => TRUE, 'attributes' => array('class' => $class, 'target' => '_blank'))
           ),
