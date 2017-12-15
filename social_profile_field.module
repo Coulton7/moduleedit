@@ -152,7 +152,7 @@ function _social_profile_field_get_icon($domain) {
   if (!file_exists($path)) {
     $path = _social_profile_field_get_icon_path();
   }
-  return theme(array(
+  return theme('i', array(
     'path' => $path,
     'attributes' => array('class' => 'social-profile-icon'),
   ));
