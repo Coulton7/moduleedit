@@ -64,7 +64,7 @@ function social_profile_field_field_info() {
       'default_formatter' => 'social_profile_field_icons',
     ),
   );
-}/*Applies the default settings to the mdoule*/
+}/*Applies the default settings to the module*/
 
 /**
  * Implements hook_field_validate().
@@ -90,7 +90,7 @@ function social_profile_field_field_validate($entity_type, $entity, $field, $ins
     }
   }
 }/*Validates the the url that has been entered in the box and if it is invalid display an
-error message and the functions to do this are further implemented below*/
+error message and the function that does this are implemented below*/
 
 /**
  * Implements hook_field_is_empty().
@@ -193,12 +193,12 @@ function social_profile_field_field_formatter_view($entity_type, $entity, $field
       foreach ($items as $delta => $item) {/*Checks each item andf delta of the object*/
         $class = array('social-link');/*looks at the array of classes with social link*/
         $domain = _social_profile_field_get_domain($item['url']);/*gets hold of the domain
-         and looks at the url*/
+         and looks at the url does not need editing*/
         if ($domain == 'www.youtube.com' || $domain == 'youtube.com') {/*if the domain entered
-          has youtube.com and wwww.youtube.com*/
+          has youtube.com and wwww.youtube.com does not need editing*/
           $class[] = 'fancybox-video';/*adds the class of fancybox-video which is a
           pop-up window which will contain the youtube video itself
-          (possibly need to change for a channel what it does)*/
+          (possibly need to change for a channel what it does) does not need editing*/
         }
         $element[$delta] = array(/*gets the delta fig for the array that has been called*/
           '#markup' => l(/*used to output an html*/
@@ -211,7 +211,7 @@ function social_profile_field_field_formatter_view($entity_type, $entity, $field
             'css' => array(/*Starts to target the css file for the array of addresses*/
               drupal_get_path('module', 'social_profile_field') . '/social_profile_field.css',
             )/*States the path for drupal to follow to get the styling
-            for the social media icosn*/
+            for the social media icons keep path but edit the css file*/
           ),
         );
       }
