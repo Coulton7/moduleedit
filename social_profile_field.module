@@ -64,7 +64,7 @@ function social_profile_field_field_info() {
       'default_formatter' => 'social_profile_field_icons',
     ),
   );
-}
+}/*Applies the default settings to the mdoule*/
 
 /**
  * Implements hook_field_validate().
@@ -89,7 +89,8 @@ function social_profile_field_field_validate($entity_type, $entity, $field, $ins
       }
     }
   }
-}
+}/*Validates the the url that has been entered in the box and if it is invalid display an
+error message and the functions to do this are further implemented below*/
 
 /**
  * Implements hook_field_is_empty().
@@ -100,7 +101,8 @@ function social_profile_field_field_validate($entity_type, $entity, $field, $ins
  */
 function social_profile_field_field_is_empty($item, $field) {
   return empty($item['url']);
-}
+}/*Error flag when the field is empty and how the error is brought up
+is at the bottom of the module code*/
 
 /**
  * Implements hook_field_formatter_info().
@@ -119,9 +121,13 @@ function social_profile_field_field_formatter_info() {
       'field types' => array('social_profile_field_url'),
     ),
     // This formatter changes the background color of the content region.
-    'social_profile_field_list' => array(
-      'label' => t('Show list of links to Social Network Profiles.'),
-      'field types' => array('social_profile_field_url'),
+    'social_profile_field_list' => array(/*Declares the that thi section will have an
+      array of features*/
+      'label' => t('Show list of links to Social Network Profiles.'),/*the t() value
+      is used for to have the value be translatable and then the command
+      shows the links bewlow */
+      'field types' => array('social_profile_field_url'),/*Declares and grabs
+      the array of field types*/
     ),
   );
 }
@@ -136,26 +142,31 @@ function _social_profile_field_get_domain($url) {
 }
 
 /**
- * Returns path to icon file.*/
-
+ * Returns path to icon file.
+ */
 function _social_profile_field_get_icon_path($domain = 'default') {
-  return drupal_get_path('module', 'social_profile_field') . '/social_profile_field.css';
+  return drupal_get_path('module', 'social_profile_field') . '/icons/' . $domain . '.png';
+  /*Placing an image in the file path includes the imager in the icon field
+  could possibly replace with svg and change the moudle for the svg also doesn't
+  to target css file first */
 }
 
 /**
  * Returns path to social network icon.
  * @url string URL.
- * @return string Rendered HTML-code for icon..*/
-
-function _social_profile_field_get_icon($domain) {
-  $path = _social_profile_field_get_icon_path($domain);
-  if (!file_exists($path)) {
-    $path = _social_profile_field_get_icon_path();
+ * @return string Rendered HTML-code for icon..
+ */
+function _social_profile_field_get_icon($domain) {/*Declares the fuction*/
+  $path = _social_profile_field_get_icon_path($domain);/*Follows the path specfified above for it
+   to get the appropiate taregt*/
+  if (!file_exists($path)) {/*if path exists grab the files*/
+    $path = _social_profile_field_get_icon_path();/*calls the path*/
   }
   return theme('image', array(
     'path' => $path,
     'attributes' => array('class' => 'social-profile-icon'),
-  ));
+  ));/*Returns from following the path with an image while giving the icon a class of
+   social profile icon*/
 }
 
 /**
@@ -170,39 +181,48 @@ function _social_profile_field_get_icon($domain) {
 function social_profile_field_field_formatter_view($entity_type, $entity, $field, $instance, $langcode, $items, $display) {
   $element = array();
 
-  switch ($display['type']) {
+  switch ($display['type']) {/*Declares the function*/
     // This formatter simply outputs the field as text and with a color.
-    case 'social_profile_field_icons':
-      foreach ($items as $delta => $item) {
-        $class = array('social-link');
-        $domain = _social_profile_field_get_domain($item['url']);
-        if ($domain == 'www.youtube.com' || $domain == 'youtube.com') {
-          $class[] = 'fancybox-video';
+    case 'social_profile_field_icons':/*looks ate the above functions work
+     with the social profile icons*/
+      foreach ($items as $delta => $item) {/*Checks each item andf delta of the object*/
+        $class = array('social-link');/*looks at the array of classes with social link*/
+        $domain = _social_profile_field_get_domain($item['url']);/*gets hold of the domain
+         and looks at the url*/
+        if ($domain == 'www.youtube.com' || $domain == 'youtube.com') {/*if the domain entered
+          has youtube.com and wwww.youtube.com*/
+          $class[] = 'fancybox-video';/*adds the class of fancybox-video which is a
+          pop-up window which will contain the youtube video itself
+          (possibly need to change for a channel what it does)*/
         }
-        $element[$delta] = array(
-          '#markup' => l(
-            _social_profile_field_get_icon($domain),
-            check_url(trim($item['url'])),
+        $element[$delta] = array(/*gets the delta fig for the array that has been called*/
+          '#markup' => l(/*used to output an html*/
+            _social_profile_field_get_icon($domain),/*Gets hold of the icon and domain/url*/
+            check_url(trim($item['url'])),/*checks if the url matches on of the items*/
             array('html' => TRUE, 'attributes' => array('class' => $class, 'target' => '_blank'))
-          ),
-          '#attached' => array(
-            'css' => array(
+          ),/*once the url is shown as true the classes are added and then target_blank added to
+          the html which opens a new window when the link is clicked on*/
+          '#attached' => array(/*looks at the loading technique for the arrays*/
+            'css' => array(/*Starts to target the css file for the array of addresses*/
               drupal_get_path('module', 'social_profile_field') . '/social_profile_field.css',
-            )
+            )/*States the path for drupal to follow to get the styling
+            for the social media icosn*/
           ),
         );
       }
       break;
-    case 'social_profile_field_list':
-      foreach ($items as $delta => $item) {
-        $element[$delta] = array(
+    case 'social_profile_field_list':/*gets hold of the list of social links*/
+      foreach ($items as $delta => $item) {/*says to add items on to each delta*/
+        $element[$delta] = array(/*for each element (using delta) it targets each one*/
           '#markup' => l($item['url'], $item['url'], array('attributes' => array('class' => array('social-link')))),
-        );
+        );/*using markup on each listed item it adds the classes above to the item with the
+        arrays declared earlier*/
       }
       break;
   }
 
-  return $element;
+  return $element;/*Returns the element which has been declared
+  and broken down above and has the conditional statements*/
 }
 
 /**
@@ -225,7 +245,8 @@ function social_profile_field_field_widget_info() {
       'label' => t('Default'),
       'field types' => array('social_profile_field_url'),
     ),
-  );
+  );/*The section of code is used to show how the form will look for the
+   social profile field*/
 }
 
 /**
@@ -254,26 +275,28 @@ function social_profile_field_field_widget_form(&$form, &$form_state, $field, $i
   switch ($instance['widget']['type']) {
     case 'social_profile_field_default':
       $widget += array(
-        '#type' => 'textfield',
-        '#default_value' => $value,
-        '#maxlength' => 255,
+        '#type' => 'textfield',/*What datatype it is (textfield)*/
+        '#default_value' => $value,/*Puts in a default value which is declared above*/
+        '#maxlength' => 255,/*Stes a max length to a text value*/
         '#attributes' => array('class' => array('edit-field-social-profile-url')),
-        '#attached' => array(
+        /*Looks at the attributes and adds the right class to the field/widget*/
+        '#attached' => array(//An array for the attached files for the widget
           // Add javascript to show social network icon on the fly:
           'js' => array(
             drupal_get_path('module', 'social_profile_field') . '/js/jquery.urlparser/jquery.url.js',
             drupal_get_path('module', 'social_profile_field') . '/js/social_profile_field.js'
-          ),
+          ),/*Gets the path for the javascript which is in the module file*/
           'css' => array(
             drupal_get_path('module', 'social_profile_field') . '/social_profile_field.css',
-          )
+          )/*gets the path for the css document and declares the value*/
         ),
       );
       break;
   }
-  $element['url'] = $widget;
-  return $element;
-}
+  $element['url'] = $widget;/*states the the elemnt is the same as widegt*/
+  return $element;/*returns the element which with the code above we know is now the widget*/
+}/*Styles out how the form willl look when it is loaded up on the a field, in epsilon
+case it will be how the form will look on the system user file*/
 
 /**
  * Implements hook_field_widget_error().
@@ -291,7 +314,7 @@ function social_profile_field_field_widget_error($element, $error, $form, &$form
       form_error($element, $error['message']);
       break;
   }
-}
+}/*Command for when the data for the field is incorrectly entered*/
 
 /**
  * @} End of "defgroup social_profile_field".
