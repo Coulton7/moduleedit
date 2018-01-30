@@ -139,13 +139,18 @@ function social_profile_field_field_formatter_info() {
  */
 function _social_profile_field_get_domain($url) {
   return parse_url(check_url(trim($url)), PHP_URL_HOST);
-}
+}/*The full url then trims it down so it can the the domain name which will be
+used for gett hold of the correct image with the corresponding website*/
 
 /**
  * Returns path to icon file.
  */
 function _social_profile_field_get_icon_path($domain = 'default') {
   return drupal_get_path('module', 'social_profile_field') . '/icons/' . $domain . '.png';
+/*Once the domain path has been trimmed down and this function looks at the path
+then checks the folder, which the path has been defined to and gets the image based off
+the domain, e.g Facebook gets facebook logo, but others get default logo*/
+
   /*Placing an image in the file path includes the imager in the icon field
   could possibly replace with svg and change the moudle for the svg also doesn't
   to target css file first */
@@ -183,7 +188,7 @@ function social_profile_field_field_formatter_view($entity_type, $entity, $field
 
   switch ($display['type']) {/*Declares the function*/
     // This formatter simply outputs the field as text and with a color.
-    case 'social_profile_field_icons':/*looks ate the above functions work
+    case 'social_profile_field_icons':/*looks at the above functions work
      with the social profile icons*/
       foreach ($items as $delta => $item) {/*Checks each item andf delta of the object*/
         $class = array('social-link');/*looks at the array of classes with social link*/
