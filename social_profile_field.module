@@ -149,7 +149,8 @@ function _social_profile_field_get_icon_path($domain = 'default') {
   return drupal_get_path('module', 'social_profile_field') . '/icons/' . $domain . '.png';
 /*Once the domain path has been trimmed down and this function looks at the path
 then checks the folder, which the path has been defined to and gets the image based off
-the domain, e.g Facebook gets facebook logo, but others get default logo*/
+the domain, e.g Facebook gets facebook logo, but for others that do not
+have a logo it gets the default logo*/
 
   /*Placing an image in the file path includes the imager in the icon field
   could possibly replace with svg and change the moudle for the svg also doesn't
